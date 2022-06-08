@@ -2,7 +2,6 @@ import React from "react";
 import classes from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
 
-console.log(classes)
 
 const changeColorLink = ({isActive}) => isActive ? classes.active : classes.item
 
@@ -11,7 +10,7 @@ const Navbar = () => {
     return (
         <nav className={classes.nav}>
             <div className={classes.item}>
-                <NavLink className={changeColorLink} to={'/profile'} >Profile</NavLink></div>
+                <NavLink className={changeColorLink} to={'/profile'}>Profile</NavLink></div>
             <div className={`${classes.item} ${classes.activeLink}`}>
                 <NavLink className={changeColorLink} to={'/dialogs'}>Messages</NavLink></div>
             <div className={classes.item}>
