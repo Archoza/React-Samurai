@@ -3,9 +3,7 @@ import classes from './MyPosts.module.css'
 import Post from "./Post/Post";
 
 const MyPosts = (props) => {
-    let postData = props.postsData
-
-    let postsElements = postData.map((post, index) =>
+    let postsElements = props.postsData.map((post, index) =>
         <Post key={index} message={post.message} likesCount={post.likesCount}/>)
 
     return (
