@@ -38,6 +38,9 @@ let store = {
     getState() {
         return this._state
     },
+    subscribe(observer) {
+        this._state._callSubscriber = observer
+    },
     _updateNewPostText(newText) {
         this._state.profilePage.newPostText = newText
         this._state._callSubscriber(this._state)
@@ -53,20 +56,14 @@ let store = {
         this._state.profilePage.newPostText = ''
         this._state._callSubscriber(this._state)
     },
-    subscribe(observer) {
-        this._state._callSubscriber = observer
-    },
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.messagesPage = dialogsReducer(this._state.messagesPage, action)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-        this._callSubscriber(this._state)
+        this._state._callSubscriber(this._state)
     }
 
-
 }
-
-
 
 
 
