@@ -9,7 +9,6 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-// debugger
 
 export let rerenderEntireTree = (state) => {
     root.render(
