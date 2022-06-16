@@ -25,15 +25,15 @@ const Dialogs = (props) => {
         props.store.dispatch(sendMessageCreator())
     }
     let onNewMessageChange = (e) => {
-        let body = e.target.value
-        props.store.dispatch(updateNewMessageBodyCreator(body))
-
+        let body = (e.target.value).toString()
+        let test = updateNewMessageBodyCreator(body)
+        console.log('test', test)
+        props.store.dispatch(test)
 
 
     }
     let gg = state.messagesData
     console.log(gg)
-
 
 
     return (
@@ -48,7 +48,7 @@ const Dialogs = (props) => {
                         // ref={newMessageElement}
                         value={newMessageBody}
                         onChange={onNewMessageChange}
-                        placeholder={'Enter your message'} >
+                        placeholder={'Enter your message'}>
                     </textarea></div>
                     <div>
                         <button onClick={onSendMessageClick}>Send</button>
