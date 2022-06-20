@@ -6,9 +6,10 @@ import Message from "./Message/Message";
 
 const Dialogs = (props) => {
     let state = props.messagesPage
-    const dialogsData = state.dialogsData
-    const messagesData = state.messagesData
-    const newMessageBody = state.newMessageBody
+    let dialogsData = state.dialogsData
+    let messagesData = state.messagesData
+    let newMessageBody = state.newMessageBody
+
 
     let dialogsElements = dialogsData
         .map((dialog, index) =>
@@ -27,7 +28,6 @@ const Dialogs = (props) => {
 
 
     }
-
 
 
     return (
