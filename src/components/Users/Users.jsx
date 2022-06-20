@@ -1,13 +1,14 @@
 import React from 'react';
 import classes from './users.module.css'
+import axios from "axios";
+
 
 const Users = (props) => {
     if (props.users.length === 0) {
-        props.setUsers([
-            {id: 1, photoUrl:'https://cdn1.flamp.ru/273483ee045964372141d71e9c71e18e.jpg',followed: false, fullName: 'Dmitry', status:'Im a boss', location: {city:'Minsk', country:'Belarus'}},
-            {id: 2, photoUrl:'https://cdn1.flamp.ru/273483ee045964372141d71e9c71e18e.jpg',followed: true, fullName: 'Arsen', status:'Im a boss too', location: {city:'Moscow', country:'Russia'}},
-            {id: 3, photoUrl:'https://cdn1.flamp.ru/273483ee045964372141d71e9c71e18e.jpg',followed: false, fullName: 'Ivan', status:'Im a boss too', location: {city:'Kiev', country:'Ukraine'}},
-        ])
+        axios.get("https://social-network.samuraijs.com/api/1.0/users")
+            .then(response => {
+                props.setUsers(response.data.items)
+            })
     }
 
 
@@ -16,7 +17,9 @@ const Users = (props) => {
         <div key={user.id}>
             <span>
                 <div>
-                    <img src={user.photoUrl} alt={''} className={classes.userPhoto}/>
+                    <img src={user.photos.small != null ?
+                        user.photos.small : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWfHTmyeHVHg_0nhMh2ZaLub7EcbFUYHuV6xGI42mw4hMPawYhyTcg96nVa4uCrp2Hblo&usqp=CAU'}
+                         alt={''} className={classes.userPhoto}/>
                 </div>
                 <div>
                     {user.followed
@@ -26,12 +29,12 @@ const Users = (props) => {
             </span>
 
             <span>
-                    <div>{user.fullName}</div>
+                    <div>{user.name}</div>
                     <div>{user.status}</div>
                 </span>
             <span>
-                    <div>{user.location.country}</div>
-                    <div>{user.location.city}</div>
+                    <div>{'user.location.country'}</div>
+                    <div>{'user.location.city'}</div>
                 </span>
         </div>
     ))
