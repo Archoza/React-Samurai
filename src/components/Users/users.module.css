@@ -4,3 +4,8 @@
     object-fit: cover;
     border-radius: 50px;
 }
+
+
+.selectedPage {
+    font-weight: bold;
+}
