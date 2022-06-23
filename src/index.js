@@ -22,28 +22,5 @@ root.render(
 
 reportWebVitals();
 
-// export let rerenderEntireTree = (state) => {
-//     root.render(
-//         <React.StrictMode>
-//             <Router>
-//                 <Provider store={store}>
-//                     <App />
-//                 </Provider>
-//             </Router>
-//         </React.StrictMode>
-//     );
-//
-//
-//     reportWebVitals();
-// }
-//
-//
-// rerenderEntireTree(store.getState())
-// store.subscribe(rerenderEntireTree)
 
-
-// store.subscribe(() => {
-//     let state = store.getState()
-//     rerenderEntireTree(state)
-// })
 
