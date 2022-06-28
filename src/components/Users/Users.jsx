@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "./users.module.css";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
-import {API_KEY} from '../../redux/redux-store'
+import {API_KEY} from '../../../config'
 
 const Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
