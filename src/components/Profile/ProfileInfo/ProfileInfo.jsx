@@ -18,6 +18,7 @@ const ProfileInfo = (props) => {
                 </div>
                 <div>
                     <span>{props.profile.fullName}</span><br/>
+                    <span>{props.profile.userId}</span><br/>
                     <span>{props.profile.aboutMe}</span><br/>
                     <span>{props.profile.lookingForAJobDescription}</span>
                 </div>
