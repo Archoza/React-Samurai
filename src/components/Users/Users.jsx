@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from "./users.module.css";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
+import {API_KEY} from '../../redux/redux-store'
 
 const Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -8,6 +10,10 @@ const Users = (props) => {
     for (let i=1; i <= 10; i++) { //pagesCount
         pages.push(i)
     }
+
+
+
+
 
     return (
         <div>
@@ -34,8 +40,27 @@ const Users = (props) => {
                 </div>
                 <div>
                     {user.followed
-                        ? <button onClick={() => props.unfollow(user.id)}>Unfollow</button>
-                        : <button onClick={() => props.follow(user.id)}>Follow</button>}
+                        ? <button onClick={() => {
+                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
+                                withCredentials: true, headers: {'API-KEY': API_KEY}
+                            }).then(response => {
+                                if (response.data.resultCode === 0) {
+                                    props.unfollow(user.id)
+                                }
+                            })
+                        }}>Unfollow</button>
+
+
+                        : <button onClick={() => {
+                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, null,{
+                                withCredentials: true, headers: {'API-KEY': API_KEY}
+
+                            }).then(response => {
+                                if (response.data.resultCode === 0) {
+                                    props.follow(user.id)
+                                }
+                            })
+                        }}>Follow</button>}
                 </div>
             </span>
 
