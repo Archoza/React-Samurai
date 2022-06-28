@@ -34,7 +34,9 @@ class ProfileContainer extends Component {
         return <Preloader/>
     }
 }
-
+let mapStateToProps = (state) => ({
+    profile: state.profilePage.profile
+})
 
 const withRouter = (Component) => {
     function ComponentWithRouterProp(props) {
@@ -53,8 +55,6 @@ const withRouter = (Component) => {
 }
 
 
-let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
-})
+
 
 export default connect(mapStateToProps, {setUserProfile})(withRouter(ProfileContainer));
