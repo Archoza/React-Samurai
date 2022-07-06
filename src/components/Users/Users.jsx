@@ -9,7 +9,6 @@ const Users = (props) => {
     for (let i=1; i <= 10; i++) { //pagesCount
         pages.push(i)
     }
-
     return (
         <div>
             <div>
@@ -35,19 +34,24 @@ const Users = (props) => {
                 </div>
                 <div>
                     {user.followed
-                        ? <button onClick={() => {
+                        ? <button disabled={props.followingInProgress.some(id=>id===user.id)} onClick={() => {
+                            props.toggleFollowingInProgress(true, user.id)
+                            debugger
                             usersAPI.deleteFollow(user.id).then(resultCode => {
                                 if (resultCode === 0) {
                                     props.unfollow(user.id)
                                 }
+                                props.toggleFollowingInProgress(false, user.id)
                             })
                         }}>Unfollow</button>
 
-                        : <button onClick={() => {
+                        : <button disabled={props.followingInProgress.some(id=>id===user.id)} onClick={() => {
+                            props.toggleFollowingInProgress(true, user.id)
                             usersAPI.addFollow(user.id).then(resultCode => {
                                 if (resultCode === 0) {
                                     props.follow(user.id)
                                 }
+                                props.toggleFollowingInProgress(false, user.id)
                             })
                         }}>Follow</button>}
                 </div>
