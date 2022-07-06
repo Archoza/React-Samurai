@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {getUserProfile} from "../../redux/profile-reducer";
-import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Preloader from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 class ProfileContainer extends Component {
-
     componentDidMount() {
         let userId = this.props.router.params.userId
         this.props.getUserProfile(userId)
@@ -33,9 +33,6 @@ let mapStateToProps = (state) => ({
 })
 
 
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-
-
 const withRouter = (Component) => {
     function ComponentWithRouterProp(props) {
         let location = useLocation();
@@ -53,4 +50,8 @@ const withRouter = (Component) => {
 }
 
 
-export default connect(mapStateToProps, {getUserProfile})(withRouter(AuthRedirectComponent));
+export default compose(
+    connect(mapStateToProps, {getUserProfile}),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer)
