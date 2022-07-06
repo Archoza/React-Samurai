@@ -50,11 +50,13 @@ export const addPostActionCreator = () => ({type: ADD_POST})
 export const updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text})
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
 
-export const getProfileThunk = (userId) => (dispatch) => {
+export const getUserProfile = (userId) => (dispatch) => {
     usersAPI.getProfile(userId).then(data => {
         dispatch(setUserProfile(data))
     })
+
 }
+
 
 
 export default profileReducer
