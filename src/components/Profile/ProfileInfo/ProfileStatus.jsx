@@ -1,13 +1,11 @@
 import React from "react";
 import styles from './ProfileStatus.module.css'
-import dialogsReducer from "../../../redux/dialogs-reducer";
 
 class ProfileStatus extends React.Component {
     state = {
         editMode: false,
         status: this.props.status
     }
-
     activateEditMode = () => {
         this.setState({
             editMode: true
@@ -27,6 +25,12 @@ class ProfileStatus extends React.Component {
             status: e.currentTarget.value
         })
 
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.status !== this.props.status){
+            this.setState({status:this.props.status})
+        }
     }
 
     render() {
