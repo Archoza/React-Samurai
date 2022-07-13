@@ -2,6 +2,7 @@ import React from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {Input} from "../common/FormControls/FormControls";
 import {maxLengthCreator, required} from "../../utils/validators/validators";
+import styles from './../common/FormControls/FormControls.module.css'
 
 
 const LoginForm = (props) => {
@@ -13,6 +14,9 @@ const LoginForm = (props) => {
             <div>
                 <button>Submit</button>
             </div>
+            {props.error && <div className={styles.formSummaryError}>{props.error}</div>}
+
+
         </form>
     )
 }

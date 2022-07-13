@@ -3,7 +3,6 @@ import LoginReduxForm from "./Form";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
-import {mapStateToPropsFactory} from "react-redux/es/connect/mapStateToProps";
 
 
 const Login = (props) => {
