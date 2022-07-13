@@ -22,7 +22,7 @@ export const usersAPI = {
     }
 }
 
-export const profileAPI = {
+export const profileAPI = { //TODO #1 need create redirect to another page after logout
     getProfile(userId = '2') {
         return instance.get(`profile/${userId}`)
             .then(response => response.data)
