@@ -9,9 +9,13 @@ const Header = (props) => {
                 src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/business-logo-design-template-78655edda18bc1196ab28760f1535baa_screen.jpg?ts=1617645324"
                 alt=""/>
             <div className={styles.loginBlock}>
-                {props.isAuth ? props.login
-                    : <NavLink to={'/Login'}>Login</NavLink>}
-
+                {props.isAuth
+                    ? <div>
+                        <div>{props.login}</div>
+                        <div><button onClick={props.logout}>Logout</button></div>
+                </div>
+                    : <NavLink to={'/Login'}>Login</NavLink>
+                }
             </div>
         </header>
     )
