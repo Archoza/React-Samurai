@@ -1,7 +1,7 @@
 import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
-const SET_USER_DATA = 'SET_USER_DATA';
+const SET_USER_DATA = 'wild_wizards/auth/SET_USER_DATA';
 
 let initialState = {
     userId: null,
@@ -17,7 +17,6 @@ const authReducer = (state = initialState, action) => {
                 ...state, ...action.data,
                 isAuth: true
             }
-
         }
         default:
             return state
@@ -27,42 +26,34 @@ const authReducer = (state = initialState, action) => {
 export const setAuthUserData = (userId, email, login, isAuth) => (
     {type: SET_USER_DATA, data: {userId, email, login, isAuth}})
 
-export const getAuthUserData = () => (dispatch) => {
-    return authAPI.getAuth()
-        .then(data => {
-            if (data.resultCode === 0) {
-                let {id, login, email} = data.data
-                dispatch(setAuthUserData(id, login, email))
-            }
-        })
-
-
+export const getAuthUserData = () => async (dispatch) => {
+    let data = await authAPI.getAuth()
+    if (data.resultCode === 0) {
+        let {id, login, email} = data.data
+        dispatch(setAuthUserData(id, login, email))
+    }
 }
 
 
-export const login = (email, password, rememberMe) => (dispatch) => {
-    authAPI.login(email, password, rememberMe)
-        .then(data => {
-            if (data.resultCode === 0) {
-                let {id, login, email} = data.data
-                dispatch(setAuthUserData(id, login, email, true))
-            } else {
-                let message = data.messages.length > 0 ? data.messages[0] : 'Some error'
-                dispatch(stopSubmit('login', {_error:message}))
-            }
-        })
+export const login = (email, password, rememberMe) => async (dispatch) => {
+    let data = await authAPI.login(email, password, rememberMe)
+    if (data.resultCode === 0) {
+        let {id, login, email} = data.data
+        dispatch(setAuthUserData(id, login, email, true))
+    } else {
+        let message = data.messages.length > 0 ? data.messages[0] : 'Some error'
+        dispatch(stopSubmit('login', {_error: message}))
+    }
+
 }
-export const logout = () => (dispatch) => {
-    authAPI.logout()
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null, false))
-            }
-        })
+export const logout = () => async (dispatch) => {
+    let data = await authAPI.logout()
+    if (data.resultCode === 0) {
+        dispatch(setAuthUserData(null, null, null, false))
+    }
+
     //TODO #1 Redirect here from logout
 }
-
-
 
 
 export default authReducer
