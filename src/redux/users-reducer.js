@@ -16,7 +16,6 @@ let initialState = {
     currentPage: 1,
     isFetching: false,
     followingInProgress: []
-
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -56,7 +55,6 @@ const usersReducer = (state = initialState, action) => {
         default:
             return state
     }
-
 }
 
 export const followSuccess = (userId) => ({type: FOLLOW, userId})
@@ -73,7 +71,7 @@ export const requestUsers = (page, pageSize) => async (dispatch) => {
     let data = await usersAPI.getUsers(page, pageSize)
     dispatch(setIsFetching(false))
     dispatch(setUsers(data.items))
-    dispatch(setUsersTotalCount(data.totalUsersCount))
+    dispatch(setUsersTotalCount(data.totalCount))
     dispatch(setCurrentPage(page))
 }
 

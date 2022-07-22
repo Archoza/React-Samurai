@@ -62,7 +62,7 @@ let AppContainer = compose(
 )(App)
 
 
-const SamuraiJSApp = (props) => {
+const SamuraiJSApp = () => {
     return (
         <React.StrictMode>
             <Router>
