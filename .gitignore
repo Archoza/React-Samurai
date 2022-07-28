@@ -10,7 +10,8 @@ src/config.js
 /coverage
 
 # production
-
+/public
+/src
 
 # misc
 .DS_Store
