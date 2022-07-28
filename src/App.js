@@ -1,21 +1,21 @@
-import React from "react";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import './App.css';
+import store from "./redux/redux-store";
+import {compose} from "redux";
+import React, {lazy, Suspense} from "react";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {connect, Provider} from "react-redux";
+import {initializeApp} from "./redux/app-reducer";
+import Preloader from "./components/common/Preloader/Preloader";
 import Login from "./components/Login/Login";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
-import {connect, Provider} from "react-redux";
-import {compose} from "redux";
-import {initializeApp} from "./redux/app-reducer";
-import Preloader from "./components/common/Preloader/Preloader";
-import store from "./redux/redux-store";
-
+import {lazyLoading} from "./hoc/lazyLoading";
+const DialogsContainer = lazy(() => import ('./components/Dialogs/DialogsContainer'))
+const UsersContainer = lazy(() => import ('./components/Users/UsersContainer'))
 
 class App extends React.Component {
 
@@ -38,27 +38,25 @@ class App extends React.Component {
                         <Route path={'/login'} element={<Login/>}/>
                         <Route path={'/*'} element={<ProfileContainer/>}/>
                         <Route path={'/profile/:userId'} element={<ProfileContainer/>}/>
-                        <Route path={'/dialogs/*'} element={<DialogsContainer/>}/>
-                        <Route path={'/users'} element={<UsersContainer/>}/>
+                        <Route path={'/dialogs/*'} element={<Suspense fallback={<Preloader/>}><DialogsContainer/></Suspense>}/>
+                        <Route path={'/users'} element={ <Suspense fallback={<Preloader/>}><UsersContainer/></Suspense>}/>
                         <Route path={'/news'} element={<News/>}/>
                         <Route path={'/music'} element={<Music/>}/>
                         <Route path={'/settings'} element={<Settings/>}/>
+                        {/*<Route path={'/dialogs/*'} element={lazyLoading(DialogsContainer)}/>*/} //TODO Need fix bug with HOC, it's not working with HOC lazyLoading
+                        {/*<Route path={'/users'} element={lazyLoading(DialogsContainer)}/>*/}
                     </Routes>
                 </div>
             </div>
-
-
         )
     }
 }
 
-const mapStateToProps = (state) => ({
-    initialized: state.app.initialized
-
-})
+const mapStateToProps = state => ({initialized: state.app.initialized})
 
 let AppContainer = compose(
-    connect(mapStateToProps, {initializeApp})
+    connect(mapStateToProps,{initializeApp}
+    )
 )(App)
 
 
