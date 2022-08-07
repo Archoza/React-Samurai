@@ -5,6 +5,14 @@
 .mainPhoto {
     max-width: 150px;
     border-radius: 150px;
+}
 
 
+.contact {
+    padding-left: 15px;
+}
+
+.formSummaryError {
+    padding: 5px;
+    color: gold;
 }

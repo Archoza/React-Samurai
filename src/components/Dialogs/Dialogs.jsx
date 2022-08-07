@@ -51,6 +51,7 @@ const Dialogs = (props) => {
 }
 
 const AddMessageForm = (props) => {
+
     return <>
         <form onSubmit={props.handleSubmit}>
             <div>
