@@ -5,7 +5,7 @@ import {maxLengthCreator, required} from "../../utils/validators/validators";
 import styles from './../common/FormControls/FormControls.module.css'
 
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm = ({handleSubmit, error, captchaUrl}) => {
     return (
         <form onSubmit={handleSubmit}>
             <div><Field
@@ -18,6 +18,12 @@ const LoginForm = ({handleSubmit, error}) => {
             <div>
                 <button>Submit</button>
             </div>
+            {captchaUrl &&
+            <div><img alt={''} src={captchaUrl}/>
+                <Field name={'captcha'}
+                       placeholder={'symbols from image'}
+                       component={Input}
+                       validate={[required, maxLengthCreator(10)]}/></div>}
             {error && <div className={styles.formSummaryError}>{error}</div>}
         </form>
     )
